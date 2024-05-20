@@ -27,7 +27,7 @@ CREATE TYPE public.product_category AS ENUM (
 );
 
 
-ALTER TYPE public.product_category OWNER TO "plabs.id";
+ALTER TYPE public.product_category OWNER TO "postgres";
 
 SET default_tablespace = '';
 
@@ -48,7 +48,7 @@ CREATE TABLE public.products (
 );
 
 
-ALTER TABLE public.products OWNER TO "plabs.id";
+ALTER TABLE public.products OWNER TO "postgres";
 
 --
 -- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: plabs.id
