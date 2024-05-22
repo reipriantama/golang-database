@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"golang-database/models"
-	"log"
 )
 
 func Case1(db *sql.DB) {
@@ -17,18 +16,18 @@ func Case1(db *sql.DB) {
 	rows, err := db.Query(case1)
 
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer rows.Close()
 
-	fmt.Println("Case 1 :")
+	fmt.Println("Case 1 (Retrieve criminal name data whose status is 'Open' and Criminal date > 2024-03-15) :")
 	for rows.Next() {
 
 		var crimeInfo models.Criminal_records
 
 		err := rows.Scan(&crimeInfo.Id, &crimeInfo.Suspect_name, &crimeInfo.Crime_description, &crimeInfo.Crime_date, &crimeInfo.Crime_status)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 
 		fmt.Printf("Id : %d, Suspect_name : %s, Crime_descripton :%s, Crime_date : %s, Crime_status : %s \n",
@@ -36,6 +35,6 @@ func Case1(db *sql.DB) {
 
 	}
 	if err = rows.Err(); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }

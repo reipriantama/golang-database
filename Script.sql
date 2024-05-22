@@ -19,7 +19,7 @@ values 	('Mirza', 'Mengambil Botol Minum', '2024-04-29 15:05:36.208328'),
 		('Ahmad', 'Melakukan Pelanggaran dengan memburu hewan yang di lindungi saat mendaki gunung (Perpu Kementrian Kehutanan)', '2024-04-19 15:05:36.208328')
 		
 --case1		
-select * from criminal_records where crime_status = 'Open' and crime_date > '2024-03-15' 
+select * from criminal_records where crime_status = 'Open' and crime_date > '2024-03-15' and crime_date < '2024-06-20' 
 
 --case2
 select * from criminal_records order by crime_date desc limit 3
@@ -63,6 +63,9 @@ SELECT pg_get_serial_sequence('criminal_records', 'id');
 ALTER SEQUENCE public.criminal_records_id_seq RESTART WITH 1;
 
 delete from criminal_records 
+
+delete from criminal_records 
+where suspect_name = 'Rei';
 
 
 insert into

@@ -3,7 +3,6 @@ package cases
 import (
 	"database/sql"
 	"fmt"
-	"log"
 )
 
 func Case3(db *sql.DB) {
@@ -15,9 +14,9 @@ func Case3(db *sql.DB) {
 	var count int
 	err := db.QueryRow(case3).Scan(&count)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
-	fmt.Println("Case 3 :")
+	fmt.Println("Case 3 (Take criminal data, group it based on 'Open' status and Count) :")
 	fmt.Printf("Total open criminal records: %d\n", count)
 }

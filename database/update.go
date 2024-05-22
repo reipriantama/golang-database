@@ -1,13 +1,10 @@
-// database/update.go
-
 package database
 
 import (
 	"database/sql"
-	"log"
+	"fmt"
 )
 
-// UpdateCrimeStatus mengupdate status kejahatan sesuai dengan kondisi tertentu
 func UpdateCrimeStatus(db *sql.DB) {
 	updateQuery := `
         UPDATE criminal_records
@@ -20,8 +17,8 @@ func UpdateCrimeStatus(db *sql.DB) {
 
 	_, err := db.Exec(updateQuery)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
-	log.Println("Update successful")
+	fmt.Println("Update successful")
 }
