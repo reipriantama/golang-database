@@ -234,3 +234,113 @@ select id, name,
 from products 
 
 select * from products
+
+
+
+
+---Group By---
+
+select category, 
+count(id) as "Total Product" 
+from products group by category;
+
+select category,
+		avg(price) as "Rata-rata harga",
+		min(price) as "Harga termurah",
+		max(price) as "Harga termahal"
+from products 
+group by category;
+
+
+---Group By Having Clause---
+
+select category,
+		count(id) as "Total Product"
+from products 
+group by category
+having count(id) > 3; 
+
+select category,
+		avg(price) as "Rata-rata harga",
+		min(price) as "Harga termurah",
+		max(price) as "Harga termahal"
+from products 
+group by category
+having avg(price) >= 20000 ; 
+
+
+---constraint---
+create table customer
+(
+	id serial not null,
+	email varchar(100) not null,
+	first_name varchar(100) not null,
+	last_name varchar(100),
+	primary key (id),
+	constraint unique_email unique (email)
+)
+
+insert into customer (email, first_name, last_name)
+values ('rei@asd.com', 'rei', 'priantama');
+
+insert into customer (email, first_name, last_name)
+values 	('joko@qwe.com', 'Joko', 'Morro'),
+		('rully@qwe.com', 'Rully', 'Irwansyah');
+
+select * from customer;
+
+
+
+
+---tabel relation---
+
+create table wishlist
+(
+	id serial not null,
+	id_product varchar(10) not null,
+	description text,
+	primary key (id),
+	constraint fk_wishlist_product foreign key (id_product) references products (id)
+);
+
+insert into wishlist(id_product, description)
+values 	('P0001', 'Mie Ayam kesukaan'),
+		('P0002', 'Mie Ayam kesukaan'),
+		('P0005', 'Mie Ayam kesukaan');
+
+select * from wishlist
+
+
+
+
+---Join---
+select * 
+from wishlist
+		join products on products.id = wishlist.id_product; 
+	
+select
+	products.id,
+	products.name,
+	wishlist description
+from
+	wishlist
+join products on
+	products.id = wishlist.id_product; 
+
+alter table wishlist 
+	add column id_customer int;
+
+alter table wishlist 
+add constraint fk_wishlist_customer foreign key (id_customer) references customer(id);
+
+update wishlist
+set id_customer = 1
+where id in (5,6)
+
+update wishlist
+set id_customer = 3
+where id = 4
+
+
+select * from wishlist;
+select * from customer;
