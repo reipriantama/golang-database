@@ -6,4 +6,5 @@ type Criminal_records struct {
 	Crime_description string
 	Crime_date        string
 	Crime_status      string
+	Prison_id         int
 }

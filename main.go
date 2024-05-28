@@ -10,16 +10,16 @@ import (
 )
 
 const (
-	host = "localhost"
-	port = 5432
-	user = "plabs.id"
-	// password = "postgres"
-	dbname = "crime_data"
+	host     = "localhost"
+	port     = 5432
+	user     = "postgres"
+	password = "postgres"
+	dbname   = "crime_data"
 )
 
 func main() {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable",
-		host, port, user, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -32,20 +32,22 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("Successfully Connected!")
+	fmt.Println("Berhasil Terhubung!")
 
 	for {
-		var choice int
-		fmt.Println("Choose :")
-		fmt.Println("1. Insert")
-		fmt.Println("2. Update")
-		fmt.Println("3. View")
-		fmt.Println("4. View All Data")
-		fmt.Println("5. Delete")
-		fmt.Println("6. Exit")
-		fmt.Scan(&choice)
+		var pilihan int
+		fmt.Println("Pilih :")
+		fmt.Println("1. Tambah Data Kejahatan")
+		fmt.Println("2. Perbarui Status Kejahatan")
+		fmt.Println("3. Lihat Kasus")
+		fmt.Println("4. Lihat Semua Data Kejahatan")
+		fmt.Println("5. Hapus Data Kejahatan")
+		fmt.Println("6. Tambah Data Penjara")
+		fmt.Println("7. Lihat Semua Penjara")
+		fmt.Println("8. Keluar")
+		fmt.Scan(&pilihan)
 
-		switch choice {
+		switch pilihan {
 		case 1:
 			database.InsertCrimeData(db)
 		case 2:
@@ -61,45 +63,14 @@ func main() {
 		case 5:
 			database.DeleteCrimeData(db)
 		case 6:
-			fmt.Println("Exit")
+			database.InsertPrison(db)
+		case 7:
+			database.ViewAllPrisons(db)
+		case 8:
+			fmt.Println("Keluar")
 			return
 		default:
-			fmt.Println("Invalid choice")
-
+			fmt.Println("Pilihan tidak valid")
 		}
 	}
-
-	// insert data
-	// database.InsertCrimeData(db)
-
-	// step 3
-
-	// case 1 :
-	// Retrieve criminal name data whose status is 'Open' and Criminal date > 2024-03-15
-	// cases.Case1(db)
-
-	// case 2
-	// Take all criminal data and sort it by date of incident from the most recent and take only 3 pieces of data
-	// cases.Case2(db)
-
-	// case 3
-	// Take criminal data, group it based on 'Open' status and Count
-	// cases.Case3(db)
-
-	// case 4
-	// Take criminal data, group it based on 'Close' status and Count
-	// cases.Case4(db)
-
-	// case 5
-	// Take criminal data based on the crime description that contains the sentence 'Mengambil’
-	// cases.Case5(db)
-
-	// Step 4. When the suspect is found to be innocent, update the criminal data to 'Close'
-	// gunakan case when
-	// database.UpdateCrimeStatus(db)
-
-	// Step 5. When the suspect is truly innocent and his status has become 'Close', then remove him from the criminal list
-	// gunakan case when
-	// database.DeleteCrimeData(db)
-
 }
