@@ -18,7 +18,16 @@ func CreateCriminalRecord(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	sqlStatement := `INSERT INTO criminal_records (suspect_name, crime_description, crime_date, crime_status, prison_id) VALUES ($1, $2, $3, $4, $5)`
+	sqlStatement := `insert into
+	criminal_records (suspect_name,
+	crime_description,
+	crime_date )
+	values 	('Mirza', 'Mengambil Botol Minum', '2024-04-29 15:05:36.208328'),
+			('Epul', 'Mengambil Hati Wanita Tanpa Bilang Bilang', '2024-03-15 16:05:36.208328' ),
+			('Herdi', 'Melakukan pencucian uang', '2024-06-20 10:05:36.208328'),
+			('Atthar', 'Melakukan kecurangan saat bermain FIFA', '2024-07-25 17:05:36.208328'),
+			('Ahmad', 'Melakukan Pelanggaran dengan memburu hewan yang di lindungi saat mendaki gunung (Perpu Kementrian Kehutanan)', '2024-04-19 15:05:36.208328');
+	`
 	_, err := db.Exec(sqlStatement, record.SuspectName, record.CrimeDescription, record.CrimeDate, record.CrimeStatus, record.PrisonID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
